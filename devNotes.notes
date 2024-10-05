@@ -1,0 +1,12 @@
+pom file:
+
+1. what does mapstruct do?
+sol. Use mapstruct to convert entity to dto and vice versa.
+
+
+if we dont use componentMode = spring
+
+then we have to 
+If you don't use componentModel = "spring", MapStruct will generate a plain Java class for the mapper,
+and it won't be managed by the Spring container. This means you won't be able to inject it using Spring's @Autowired
+or other dependency injection mechanisms.
