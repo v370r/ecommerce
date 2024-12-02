@@ -27,4 +27,5 @@ public class UserController {
         UserResponse response = userService.registerUser(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
 }
