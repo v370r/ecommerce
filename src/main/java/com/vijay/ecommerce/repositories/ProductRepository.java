@@ -9,6 +9,7 @@ import com.vijay.ecommerce.dto.ProductListDTO;
 import com.vijay.ecommerce.model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Query("SELECT new com.example.demo.dto.ProductListDTO(p.id, p.name, p.description, p.price, p.quantity, p.image) FROM Product p")
+    @Query("SELECT new com.vijay.ecommerce.dto.ProductListDTO(p.id, p.name,p.description, p.price, p.quantity, p.image) FROM Product p")
+
     Page<ProductListDTO> findAllWithoutComments(Pageable pageable);
 }

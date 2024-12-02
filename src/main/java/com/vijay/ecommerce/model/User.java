@@ -3,9 +3,9 @@ package com.vijay.ecommerce.model;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+// import org.springframework.security.core.GrantedAuthority;
+// import org.springframework.security.core.authority.SimpleGrantedAuthority;
+// import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,14 +48,14 @@ public class User implements UserDetails {
         USER, ADMIN
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
-    }
+    // @Override
+    // public Collection<? extends GrantedAuthority> getAuthorities() {
+    // return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+    // }
 
-    @Override
-    public String getUsername() {
-        return email;
-    }
+    // @Override
+    // public String getUsername() {
+    // return email;
+    // }
 
 }
