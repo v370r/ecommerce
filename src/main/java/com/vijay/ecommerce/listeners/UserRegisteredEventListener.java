@@ -1,6 +1,8 @@
 package com.vijay.ecommerce.listeners;
 
 import java.util.Random;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
@@ -12,19 +14,20 @@ import com.vijay.ecommerce.service.OTPService;
 public class UserRegisteredEventListener {
 
     private final OTPService otpService;
-
+    private static final Logger logger = LoggerFactory.getLogger(UserRegisteredEventListener.class);
     public UserRegisteredEventListener(OTPService otpService) {
         this.otpService = otpService;
     }
 
     @KafkaListener(topics = "user-registered", groupId = "group_id", containerFactory = "kafkaListenerContainerFactory")
     public void handleUserRegisteredEvent(UserRegisteredEvent event, Acknowledgment acknowledgment) {
-        System.out.println(
+        logger.info(
                 "Received UserRegisteredEvent for userId: " + event.getUserId() + ", email: " + event.getEmail());
+
         int otp = new Random().nextInt(900000) + 100000;
-        System.out.println("Generated OTP " + otp + " for user " + event.getEmail());
+        logger.info("Generated OTP " + otp + " for user " + event.getEmail());
         otpService.generateOtp(event.getUserId(), otp);
         acknowledgment.acknowledge();
-        System.out.println("Message acknowledged successfully.");
+        logger.info("Message acknowledged successfully.");
     }
 }

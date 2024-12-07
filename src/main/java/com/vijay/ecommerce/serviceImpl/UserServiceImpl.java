@@ -7,13 +7,19 @@ import com.vijay.ecommerce.model.User;
 import com.vijay.ecommerce.repositories.UserRepository;
 import com.vijay.ecommerce.service.UserService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+
+
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
@@ -32,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
         User savedUser = userRepository.save(user);
         kafkaTemplate.send("user-registered", new UserRegisteredEvent(savedUser.getId(), savedUser.getEmail()));
-        System.out.println(
+        logger.info(
                 "Published UserRegisteredEvent for userId: " + savedUser.getId() + ", email: " + savedUser.getEmail());
         return new UserResponse(savedUser.getId(), savedUser.getUsername(), savedUser.getEmail());
     }
