@@ -19,8 +19,10 @@ public class UserActivationController {
     }
 
     @PostMapping("/activate")
-    public ResponseEntity<String> activateUser(@RequestParam Long userId, @RequestParam int otp) {
-        boolean isVerified = otpService.verifyOtp(userId, otp);
+    public ResponseEntity<String> activateUser(@RequestParam int userId, @RequestParam int otp) {
+
+        Long userID = Long.valueOf(userId);
+        boolean isVerified = otpService.verifyOtp(userID, otp);
         if (isVerified) {
             return ResponseEntity.ok("Account activated successfully!");
         } else {

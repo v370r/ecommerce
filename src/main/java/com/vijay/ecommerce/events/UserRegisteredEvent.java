@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-public class UserRegisteredEvent {
+public class UserRegisteredEvent extends Event {
     private Long userId;
     private String email;
 
